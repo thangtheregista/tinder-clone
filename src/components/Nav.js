@@ -1,12 +1,11 @@
 import React from "react";
 import whiteLogo from "../images/tinder_logo_white.png";
 import colorLogo from "../images/color-logo-tinder.png";
-import { useState } from "react";
-function Nav({ minimal, authToken, showModal, setShowModal, setIsSignUp }) {
-  const handleClick = () => {
-    setShowModal(true);
-    setIsSignUp(true);
-  };
+function Nav({ minimal, authToken, showModal, handleClickSetSignUpFalse }) {
+  // const handleClick = () => {
+  //   setShowModal(true);
+  //   setIsSignUp(false);
+  // };
   return (
     <nav>
       <div className="logo-container">
@@ -15,7 +14,7 @@ function Nav({ minimal, authToken, showModal, setShowModal, setIsSignUp }) {
       {!authToken && !minimal && (
         <button
           className="nav-button"
-          onClick={handleClick}
+          onClick={handleClickSetSignUpFalse}
           disabled={showModal}
         >
           Login

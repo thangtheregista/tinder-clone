@@ -2,6 +2,7 @@ import React from "react";
 import Nav from "../components/Nav";
 import AuthModal from "../components/AuthModal";
 import { useState } from "react";
+import Test from "./Test";
 
 function Home() {
   const [showModal, setShowModal] = useState(false);
@@ -11,14 +12,19 @@ function Home() {
     setShowModal(true);
     setIsSignUp(true);
   };
+  const handleClickSetSignUpFalse = () => {
+    setShowModal(true);
+    setIsSignUp(false);
+  };
   return (
     <div className="overlay">
       <Nav
         minimal={false}
         authToken={authToken}
         showModal={showModal}
-        setShowModal={setShowModal}
-        setIsSignup={setIsSignUp}
+        // setShowModal={setShowModal}
+        // setIsSignup={setIsSignUp}
+        handleClickSetSignUpFalse={handleClickSetSignUpFalse}
       />
       <div className="home">
         <h1>Swipe Right</h1>
@@ -32,6 +38,7 @@ function Home() {
             isSignUp={isSignUp}
           />
         )}
+        <Test setIsSignUp={setIsSignUp} isSignUp={isSignUp} />
       </div>
     </div>
   );
