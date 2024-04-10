@@ -50,6 +50,32 @@ app.post("/signup", async (req, res) => {
   }
 });
 
+app.post("/login", async (req, res) => {
+  const client = new MongoClient(uri);
+  console.log(req.body);
+
+  const { email, password } = req.body;
+
+  try {
+    await client.connect();
+    const database = client.db("app-data");
+    const users = database.collection("users");
+    const user = await users.findOne({ email });
+    console.log(user.hashedPassword);
+    const correctPassword = await bcrypt.compare(password, user.hashedPassword);
+    if (user && correctPassword) {
+      const token = jwt.sign(user, email, {
+        expiresIn: 60 * 24,
+      });
+      res.status(201).json({ token, userId: user.user_id, email });
+    } else {
+      res.status(400).send("Invalid Credentials");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 app.get("/users", async (req, res) => {
   const client = new MongoClient(uri);
   try {
